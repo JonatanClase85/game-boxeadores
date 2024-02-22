@@ -5,9 +5,47 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">ring</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-card>
+    <ion-card-header >
+      <ion-card-title>
+        {{selectBoxeadores1?.nombre}}
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="ion-padding" id="p1-vida"></div>
+      <ion-thumbnail>
+        <img [src]="selectBoxeadores1?.imagen" alt="{{ selectBoxeadores1?.nombre }}">
+      </ion-thumbnail>
+      <ion-card-subtitle>{{ selectBoxeadores1?.edad }} años - {{ selectBoxeadores1?.tipo }}</ion-card-subtitle>
+    </ion-card-content>
+    <!-- Agrega estos botones a tu plantilla -->
+    <ion-button (click)="pegar()">Pegar</ion-button>
+  </ion-card>
+  
+  <ion-card>
+    <ion-card-header >
+      <ion-card-title>
+        {{selectBoxeadores2?.nombre}}
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="ion-padding" id="p2-vida"></div>
+      <ion-thumbnail>
+        <img [src]="selectBoxeadores2?.imagen" alt="{{ selectBoxeadores2?.nombre }}">
+      </ion-thumbnail>
+      <ion-card-subtitle>{{ selectBoxeadores2?.edad }} años - {{ selectBoxeadores2?.tipo }}</ion-card-subtitle>
+    </ion-card-content>
+    <!-- <ion-button (click)="selecccionarJugadorAlAzar()">
+      Seleccionar Oponente Aleatorio
+    </ion-button> -->
+  </ion-card>
+
+  <ion-button (click)="reiniciarJuego()">
+    Reiniciar Juego
+  </ion-button>
+
+  <ion-button (click)="navigateAtras()">
+    Pagina Anterior
+  </ion-button>
+
 </ion-content>

@@ -20,7 +20,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/formulario-crear/formulario-crear.module').then( m => m.FormularioCrearPageModule)
   },
   {
-    path: 'ring',
+    path: 'ring/:boxeador',
     loadChildren: () => import('./pages/ring/ring.module').then( m => m.RingPageModule)
   }
 ];
