@@ -52,4 +52,15 @@ export class BoxeadoresService {
       })
     );
   }
+
+  public editBoxeadores(id: string, body: Boxeadores): Observable<Boxeadores> {
+    return this.apiBoxeadoresService.editApiBoxeadores(id, body).pipe(
+      map((boxeador) => {
+            return boxeador;
+      })
+    );
+  }
+
 }
+
+

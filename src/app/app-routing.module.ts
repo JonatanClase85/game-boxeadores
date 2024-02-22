@@ -22,7 +22,7 @@ const routes: Routes = [
   {
     path: 'ring/:boxeador',
     loadChildren: () => import('./pages/ring/ring.module').then( m => m.RingPageModule)
-  }
+  },
 ];
 
 @NgModule({

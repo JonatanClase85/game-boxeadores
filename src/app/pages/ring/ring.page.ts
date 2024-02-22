@@ -1,3 +1,5 @@
+
+
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -23,6 +25,8 @@ export class RingPage implements OnInit {
   public danioMaximo: number = 20;
   public danioRecibido1: number = 0;
   public danioRecibido2: number = 0;
+
+  public mensajes: string[] = [];
 
   constructor(
     private boxeadoresService:BoxeadoresService,
@@ -66,13 +70,10 @@ export class RingPage implements OnInit {
       this.danioRecibido1 = Math.floor(
         Math.random() * (this.danioMaximo - this.danioMinimo + 1) + this.danioMinimo
       );
-      this.danioRecibido2 = Math.floor(
-        Math.random() * (this.danioMaximo - this.danioMinimo + 1) + this.danioMinimo
-      );
   
       // Resta el daño al jugador 2
-      this.vidasJugador2 -= this.danioRecibido2;
-      this.vidasJugador1 -= this.danioRecibido1;
+      this.vidasJugador1 -= this.danioRecibido2;
+      // this.vidasJugador1 -= this.danioRecibido;
   
       // Verifica si el jugador 2 ha perdido todas las vidas
       if (this.vidasJugador2 <= 0) {
@@ -83,49 +84,57 @@ export class RingPage implements OnInit {
         console.log(`Jugador 1 pegó ${this.danioRecibido1} de daño. Vidas restantes del Jugador 2: ${this.vidasJugador2}`);
       }
 
+    }
+  
+    public iniciarTurnosAutomaticos() {
+      // Inicia los turnos automáticos
+      const intervalId = setInterval(() => {
+        if (this.vidasJugador1 <= 0 || this.vidasJugador2 <= 0) {
+          if(this.vidasJugador1 <= 0) {
+            console.log('¡Jugador 1 ganó!');            
+          } else {
+            console.log('¡Jugador 2 ganó!');
+
+          }
+          // Al menos uno de los jugadores ha perdido, detener los turnos automáticos
+          clearInterval(intervalId);
+          console.log('Turnos automáticos detenidos. El juego ha terminado.');
+        } else {
+          this.ataqueAutomatico();
+          this.pegar();
+        }
+      }, 2000); // Cambia el intervalo según tus necesidades
+    }
+
+    public ataqueAutomatico() {
+      // Genera un valor aleatorio entre danioMinimo y danioMaximo
+      this.danioRecibido2 = Math.floor(
+        Math.random() * (this.danioMaximo - this.danioMinimo + 1) + this.danioMinimo
+      );
+    
+      // Resta el daño al jugador 2
+      this.vidasJugador2 -= this.danioRecibido1;
+    
+      // Verifica si el jugador 2 ha perdido todas las vidas
       if (this.vidasJugador1 <= 0) {
-        this.reiniciarJuego();
         console.log('¡Jugador 2 ganó!');
         // Puedes agregar lógica adicional para manejar el final del juego
+        this.reiniciarJuego();
       } else {
         console.log(`Jugador 2 pegó ${this.danioRecibido2} de daño. Vidas restantes del Jugador 1: ${this.vidasJugador1}`);
       }
     }
-  
-    // public iniciarTurnosAutomaticos() {
-    //   // Inicia los turnos automáticos
-    //   setInterval(() => {
-    //     this.ataqueAutomatico();
-    //   }, 10); // Cambia el intervalo según tus necesidades
-    // }
 
-    // public ataqueAutomatico() {
-    //   // Genera un valor aleatorio entre danioMinimo y danioMaximo
-    //   this.danioRecibido = Math.floor(
-    //     Math.random() * (this.danioMaximo - this.danioMinimo + 1) + this.danioMinimo
-    //   );
+    public actualizarVidas() { 
+      const p1VidaElement = document.getElementById('p1-vida');
+      const p2VidaElement = document.getElementById('p2-vida');
+
+      if (p1VidaElement && p2VidaElement) {
+        p1VidaElement.style.width = `${this.vidasJugador1}%`;
+        p2VidaElement.style.width = `${this.vidasJugador2}%`;
+      }
+    }
     
-    //   // Resta el daño al jugador 2
-    //   this.vidasJugador2 -= this.danioRecibido;
-    
-    //   // Verifica si el jugador 2 ha perdido todas las vidas
-    //   if (this.vidasJugador2 <= 0) {
-    //     console.log('¡Jugador 1 ganó!');
-    //     // Puedes agregar lógica adicional para manejar el final del juego
-    //     this.reiniciarJuego();
-    //   } else {
-    //     console.log(`Jugador 1 pegó ${this.danioRecibido} de daño. Vidas restantes del Jugador 2: ${this.vidasJugador2}`);
-    //   }
-    // }
-    
-  
-  
-    // public reiniciarJuego() {
-    //   // Reinicia las vidas y selecciona nuevos jugadores
-    //   this.vidasJugador1 = 100;
-    //   this.vidasJugador2 = 100;
-    //   this.selecccionarJugadorAlAzar();
-    // }
     public reiniciarJuego() {
       this.vidasJugador1 = 100;
       this.vidasJugador2 = 100;

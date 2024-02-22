@@ -47,7 +47,9 @@ export class BoxeadoresPage implements OnInit {
     });
   }
 
-
+  public navigateAtras() {
+    this.router.navigate(['folder/Inbox']);
+}
 
 }
 

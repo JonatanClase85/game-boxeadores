@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { BoxeadoresService } from 'src/app/servicios/boxeadores/boxeadores.service';
 
 @Component({
@@ -10,7 +11,11 @@ import { BoxeadoresService } from 'src/app/servicios/boxeadores/boxeadores.servi
 })
 export class FormularioCrearPage implements OnInit {
   public boxeadorForm: FormGroup;
-  constructor(private fb: FormBuilder, private boxeadorService: BoxeadoresService) { 
+  constructor(
+    private fb: FormBuilder,
+     private boxeadorService: BoxeadoresService,
+     private router: Router
+     ) { 
     this.boxeadorForm = this.fb.group({
       nombre: ['', Validators.required],
       edad: ['', Validators.required],
@@ -35,6 +40,14 @@ export class FormularioCrearPage implements OnInit {
         }
       );
     }
+    this. navigateAtras();
   }
 
+  public navigateAtras() {
+      setTimeout( () => {
+        this.router.navigate(['boxeadores']);
+      }, 2000)
+    } 
 }
+
+

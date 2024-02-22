@@ -12,14 +12,15 @@
       </ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <div class="ion-padding" id="p1-vida"></div>
+      <div class="ion-padding" id="p1-vida-container">
+        <div id="p1-vida" [style.width]="vidasJugador1 + '%'"></div>
+      </div>
       <ion-thumbnail>
         <img [src]="selectBoxeadores1?.imagen" alt="{{ selectBoxeadores1?.nombre }}">
       </ion-thumbnail>
       <ion-card-subtitle>{{ selectBoxeadores1?.edad }} años - {{ selectBoxeadores1?.tipo }}</ion-card-subtitle>
     </ion-card-content>
     <!-- Agrega estos botones a tu plantilla -->
-    <ion-button (click)="pegar()">Pegar</ion-button>
   </ion-card>
   
   <ion-card>
@@ -29,7 +30,9 @@
       </ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <div class="ion-padding" id="p2-vida"></div>
+      <div class="ion-padding" id="p1-vida-container">
+        <div id="p2-vida" [style.width]="vidasJugador1 + '%'"></div>
+      </div>
       <ion-thumbnail>
         <img [src]="selectBoxeadores2?.imagen" alt="{{ selectBoxeadores2?.nombre }}">
       </ion-thumbnail>
@@ -39,7 +42,8 @@
       Seleccionar Oponente Aleatorio
     </ion-button> -->
   </ion-card>
-
+  
+  <ion-button (click)="iniciarTurnosAutomaticos()">Pegar</ion-button>
   <ion-button (click)="reiniciarJuego()">
     Reiniciar Juego
   </ion-button>
